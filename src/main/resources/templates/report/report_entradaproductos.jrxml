@@ -103,10 +103,10 @@
                 <reportElement x="139" y="113" width="90" height="20" uuid="4722dc46-c440-4f9e-b374-eb10045a7471"/>
                 <text><![CDATA[www.sysdata.com]]></text>
             </staticText>
-            <image>
-                <reportElement x="50" y="9" width="50" height="46" uuid="ff16eb31-be90-40f7-9337-e66fcfd8b3c2"/>
-                <imageExpression><![CDATA["templates/report/logoys.png"]]></imageExpression>
-            </image>
+<!--            <image>-->
+<!--                <reportElement x="50" y="9" width="50" height="46" uuid="ff16eb31-be90-40f7-9337-e66fcfd8b3c2"/>-->
+<!--                <imageExpression><![CDATA["templates/report/logoys.png"]]></imageExpression>-->
+<!--            </image>-->
         </band>
     </title>
     <detail>
