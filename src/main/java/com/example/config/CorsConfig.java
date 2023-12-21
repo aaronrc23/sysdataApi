@@ -14,11 +14,11 @@ public class CorsConfig {
                 @Override
                 public void addCorsMappings(CorsRegistry registry){
                     registry.addMapping("/login")
-                                    .allowedOrigins("https://sysdatademofront.web.app")
+                                    .allowedOrigins("https://sysdataapi-production.up.railway.app")
                                     .allowedMethods("*")
                                     .exposedHeaders("*");
                     registry.addMapping("/api/**")
-                            .allowedOrigins("https://sysdatademofront.web.app")
+                            .allowedOrigins("https://sysdataapi-production.up.railway.app")
                             .allowedMethods("*");
                 }
             };
