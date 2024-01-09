@@ -30,8 +30,8 @@ public class Productos  implements Serializable {
     @Column
     private double precio_venta;
 
-    @Column
-    private double precio_compra;
+//    @Column
+//    private double precio_compra;
 
     @Column
     private double precio_pormayor;

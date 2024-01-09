@@ -15,11 +15,15 @@ public class GEntradaDto {
     private List<ProductoDto> productos;
     private String numserie;
     private String proveedorNombre;
+    private Integer cantidadtotal;
+    private Double preciototal;
 
-    public GEntradaDto(GEntradaRequest entradaRequest, String numserie, String proveedorNombre) {
+    public GEntradaDto(GEntradaRequest entradaRequest, String numserie, String proveedorNombre, Integer cantidadtotal,Double preciototal) {
         this.fecha = entradaRequest.getFecha();
         this.productos = entradaRequest.getProductos();
         this.numserie = entradaRequest.getNumserie();
         this.proveedorNombre = proveedorNombre;
+        this.cantidadtotal = cantidadtotal;
+        this.preciototal=preciototal;
     }
 }

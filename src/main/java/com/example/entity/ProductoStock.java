@@ -33,4 +33,7 @@ public class ProductoStock implements Serializable {
     @Column
     private int stock;
 
+
+
+
 }

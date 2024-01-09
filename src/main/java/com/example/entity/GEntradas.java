@@ -2,6 +2,7 @@
 
 
     import com.example.entity.detalles.DetalleEntrada;
+    import com.example.entity.detalles.DetallejsonProducto;
     import com.fasterxml.jackson.annotation.JsonIgnore;
     import jakarta.persistence.*;
     import lombok.AllArgsConstructor;
@@ -35,6 +36,12 @@
             @JoinColumn(name = "almacen_id")
             private Almacenes almacen;
 
+            @Column
+            private Integer cantidadtotal;
+
+            @Column
+            private Double preciototal;
+
             @OneToMany(mappedBy = "entradas", cascade = CascadeType.ALL)
             @JsonIgnore
             private List<DetalleEntrada> detalles = new ArrayList<>();
@@ -54,26 +61,19 @@
             }
 
 
-        public String getDetallesAsString() {
-            // Lógica para convertir la colección de detalles a una cadena
-            StringBuilder detallesAsString = new StringBuilder();
+        public List<DetallejsonProducto> getDetallesAsJson() {
+            List<DetallejsonProducto> detallesJson = new ArrayList<>();
             for (DetalleEntrada detalle : detalles) {
-                detallesAsString.append("ID Producto: ");
-                detallesAsString.append(detalle.getProducto().getIdproducto());
-                detallesAsString.append(", Nombre: ");
-                detallesAsString.append(detalle.getProducto().getNombre());
-                detallesAsString.append(", Cantidad: ");
-                detallesAsString.append(detalle.getCantidad());
-                detallesAsString.append("; ");
-                // Puedes agregar más información según sea necesario
+                DetallejsonProducto detalleJson = new DetallejsonProducto();
+                detalleJson.setIdproducto(detalle.getProducto().getIdproducto());
+                detalleJson.setNombre(detalle.getProducto().getNombre());
+                detalleJson.setCantidad(detalle.getCantidad());
+                detalleJson.setPreciocompra(detalle.getPreciocompra());
+                detalleJson.setCodigobarra(detalle.getProducto().getCodigo_barra());
+                detalleJson.setAbreviacion(detalle.getProducto().getUnidadDeMedida().getAbreviacion());
+                detallesJson.add(detalleJson);
             }
-
-            // Elimina el punto y coma adicional al final
-            if (detallesAsString.length() > 0) {
-                detallesAsString.setLength(detallesAsString.length() - 2);
-            }
-
-            return detallesAsString.toString();
+            return detallesJson;
         }
 
 
@@ -81,3 +81,4 @@
                 return "EN" + String.format("%04d", gentradasId);
             }
         }
+

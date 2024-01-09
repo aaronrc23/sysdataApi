@@ -55,6 +55,8 @@ public class ProveedoresController {
             proveedoresService.update(proveedores);
         }
     }
+
+    
     /*----------Borrrado logico-------------- */
     @PutMapping("desactivar/{id}")
     @PreAuthorize("hasRole('ADMIN')")

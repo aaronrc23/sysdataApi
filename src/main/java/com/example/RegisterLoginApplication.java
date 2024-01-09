@@ -20,7 +20,7 @@ public class RegisterLoginApplication {
 		SpringApplication.run(RegisterLoginApplication.class, args);
 	}
 
-
+//
 //
 //	@Autowired
 //	PasswordEncoder passwordEncoder;

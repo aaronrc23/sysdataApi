@@ -16,5 +16,6 @@ public class ProductoDto {
     private String nombre;
     private String codigo_barra;
     private Integer cantidad;
+    private Double preciocompra;
 
 }

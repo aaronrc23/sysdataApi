@@ -58,6 +58,47 @@ public class GEntradaServiceImpl  implements GuiaEntradaService {
 
 
         List<DetalleEntrada> detalles = new ArrayList<>();
+        // Agregar el cálculo de cantidadtotal
+//        Integer cantidadTotal = gentradarequest.getProductos().stream()
+//                .mapToInt(ProductoDto::getCantidad)
+//                .sum();
+//        Double precioTotal = gentradarequest.getProductos().stream()
+//                .mapToDouble(ProductoDto::getPreciocompra)
+//                .sum();
+//        pedido.setCantidadtotal(cantidadTotal);
+//        pedido.setPreciototal(precioTotal);
+//
+//
+//        for (ProductoDto productoDto : gentradarequest.getProductos()) {
+//            Productos productoExistente = obtenerProductoPorId(productoDto.getIdproducto());
+//
+//            if (productoExistente != null) {
+//                DetalleEntrada detallePedido = new DetalleEntrada();
+//                detallePedido.setEntradas(pedido);
+//                detallePedido.setProducto(productoExistente);
+//                detallePedido.setCantidad(productoDto.getCantidad());
+//                detallePedido.setPreciocompra(productoDto.getPreciocompra());
+//                detalles.add(detallePedido);
+//            } else {
+//                throw new ProductoNotFoundException("Producto con ID " + productoDto.getIdproducto() + " no encontrado");
+//            }
+//        }
+//
+//        // Guardar el pedido primero
+//        GEntradas pedidoGuardado = guiaEntradasRepository.save(pedido);
+//
+//        // Asignar el pedido a los detalles y guardar los detalles
+//        detalles.forEach(detalle -> detalle.setEntradas(pedidoGuardado));
+//        detalleEntradaRepository.saveAll(detalles);
+//
+//        // Asignar los detalles al pedido guardado
+//        pedidoGuardado.setDetalles(detalles);
+//
+//        // Verificar y actualizar el stock y el almacén después de guardar la entrada
+//        verificarYActualizarStockYAlmacen(pedidoGuardado);
+//        return pedidoGuardado;
+        Integer cantidadTotal = 0;
+        Double precioTotal = 0.0;
 
         for (ProductoDto productoDto : gentradarequest.getProductos()) {
             Productos productoExistente = obtenerProductoPorId(productoDto.getIdproducto());
@@ -67,8 +108,17 @@ public class GEntradaServiceImpl  implements GuiaEntradaService {
                 detallePedido.setEntradas(pedido);
                 detallePedido.setProducto(productoExistente);
                 detallePedido.setCantidad(productoDto.getCantidad());
+                detallePedido.setPreciocompra(productoDto.getPreciocompra());
+
+                // Realizar el cálculo del precio total por multiplicación
+                Double precioTotalPorProducto = productoDto.getCantidad() * productoDto.getPreciocompra();
+                detallePedido.setPrecioTotal(precioTotalPorProducto);
 
                 detalles.add(detallePedido);
+
+                // Incrementar la cantidad total y precio total para la entrada
+                cantidadTotal += productoDto.getCantidad();
+                precioTotal += precioTotalPorProducto;
             } else {
                 throw new ProductoNotFoundException("Producto con ID " + productoDto.getIdproducto() + " no encontrado");
             }
@@ -83,6 +133,10 @@ public class GEntradaServiceImpl  implements GuiaEntradaService {
 
         // Asignar los detalles al pedido guardado
         pedidoGuardado.setDetalles(detalles);
+
+        // Actualizar la cantidadtotal y preciototal con los cálculos realizados
+        pedidoGuardado.setCantidadtotal(cantidadTotal);
+        pedidoGuardado.setPreciototal(precioTotal);
 
         // Verificar y actualizar el stock y el almacén después de guardar la entrada
         verificarYActualizarStockYAlmacen(pedidoGuardado);

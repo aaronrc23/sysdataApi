@@ -19,6 +19,7 @@ public interface DetalleEntradaRepository extends JpaRepository<DetalleEntrada, 
             "WHERE de.entradas.gentradasId = :gentradasId")
     List<ProductoDto> findProductosEnGuiaEntradas(@Param("gentradasId") Long gentradasId);
 
+
     @Query(value = "SELECT D.* FROM detalle_entrada D JOIN entradas E ON D.entradas_id = E.gentradas_id WHERE E.gentradas_id = :entradaId", nativeQuery = true)
     List<DetalleEntrada> obtenerDetallesPorEntradaId(@Param("entradaId") Long entradaId);
 

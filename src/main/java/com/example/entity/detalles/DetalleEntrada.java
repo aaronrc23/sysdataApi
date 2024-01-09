@@ -33,7 +33,10 @@
         private Productos producto;
 
         private int cantidad;
+        private Double preciocompra;
 
+        @Column
+        private Double precioTotal;
 
 //        public String getNumserie(){
 //            return this.entradas!=null? this.entradas.getNumeroserie():"-------";

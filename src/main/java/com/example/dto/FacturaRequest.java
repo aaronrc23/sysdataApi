@@ -27,5 +27,4 @@ public class FacturaRequest {
     private String Moneda;
     private boolean activo;
 
-
 }

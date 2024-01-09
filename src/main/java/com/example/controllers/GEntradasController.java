@@ -48,7 +48,7 @@ public class GEntradasController {
     }
 
 
-    @GetMapping("/listardetalle")
+    @GetMapping("/listardetalle")   
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public ResponseEntity<?> listar_GET()
     {
@@ -90,13 +90,6 @@ public class GEntradasController {
         List<ProductoDto> productos = gentradaservice.listarProductosEnGuiaEntradas(gentradasId);
         return ResponseEntity.ok(productos);
     }
-
-
-
-
-
-
-
 
 
 }

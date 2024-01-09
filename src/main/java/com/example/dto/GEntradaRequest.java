@@ -19,5 +19,7 @@ public class GEntradaRequest {
     private String numserie;
     private Long proveedorId;
     private Long AlmacenId;
+    private Integer cantidadtotal;
+    private Double preciototal;
 
 }
