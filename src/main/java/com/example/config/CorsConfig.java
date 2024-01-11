@@ -14,13 +14,13 @@ public class CorsConfig {
                 @Override
                 public void addCorsMappings(CorsRegistry registry){
                     registry.addMapping("/login")
-                            .allowedOrigins("http://localhost:4200/")
-//                                    .allowedOrigins("https://sysdataapi-production.up.railway.app")
+//                            .allowedOrigins("http://localhost:4200/")
+                                    .allowedOrigins("https://sysdataapi-production.up.railway.app/")
                                     .allowedMethods("*")
                                     .exposedHeaders("*");
                     registry.addMapping("/api/**")
-                            .allowedOrigins("http://localhost:4200/")
-//                            .allowedOrigins("https://sysdataapi-production.up.railway.app")
+//                            .allowedOrigins("http://localhost:4200/")
+                            .allowedOrigins("https://sysdataapi-production.up.railway.app/")
                             .allowedMethods("*");
                 }
             };
