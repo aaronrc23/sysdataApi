@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/categoria")
-@CrossOrigin(origins = "https://sysdatademofront.web.app/")
+@CrossOrigin(origins = "https://upload-819f6.web.app/")
 //@CrossOrigin(origins = "http://localhost:4200/")
 public class CategoriController {
     @Autowired

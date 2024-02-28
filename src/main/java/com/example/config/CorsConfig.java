@@ -15,13 +15,13 @@ public class CorsConfig {
                 public void addCorsMappings(CorsRegistry registry){
                     registry.addMapping("/login")
 //                            .allowedOrigins("http://localhost:4200", "http://localhost:5173")
-                                    .allowedOrigins("https://sysdatademofront.web.app/","https://upload-819f6.web.app/")
+                                    .allowedOrigins("https://upload-819f6.web.app/")
 
                                     .allowedMethods("*")
                                     .exposedHeaders("*");
                     registry.addMapping("/api/**")
 //                            .allowedOrigins("http://localhost:4200", "http://localhost:5173")
-                            .allowedOrigins("https://sysdatademofront.web.app/","https://upload-819f6.web.app/")
+                            .allowedOrigins("https://upload-819f6.web.app/")
                             .allowedMethods("*");
                 }
             };
