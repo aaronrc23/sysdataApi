@@ -11,5 +11,6 @@ public interface ProductoStockService {
     void update(ProductoStock productoStock);
     void delete(Long productoStockId);
     ProductoStock findById(Long productoStockId);
+    ProductoStock findByProducto_Codigo_barra(String codigoBarras);
     Collection<ProductoStock> findAll();
 }

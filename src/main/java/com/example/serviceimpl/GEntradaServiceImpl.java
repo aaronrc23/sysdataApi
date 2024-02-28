@@ -5,12 +5,16 @@ import com.example.dto.GEntradaRequest;
 import com.example.dto.ProductoDto;
 import com.example.entity.*;
 import com.example.entity.detalles.DetalleEntrada;
+import com.example.entity.enums.TipoComprobante;
 import com.example.repository.*;
 import com.example.repository.detalles.DetalleEntradaRepository;
 import com.example.service.GuiaEntradaService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +47,13 @@ public class GEntradaServiceImpl  implements GuiaEntradaService {
     public GEntradas crearEntrada(GEntradaRequest gentradarequest) {
 
         GEntradas pedido = new GEntradas();
-        pedido.setFecha(gentradarequest.getFecha());
+//        pedido.setFecha(gentradarequest.getFecha());
+        pedido.setFechaRegistro(new Date());
+        pedido.setEstado(true);
+        // Obtener la fecha y hora actual de Perú
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Lima"));
+
+        pedido.setTipoComprobante(TipoComprobante.valueOf(gentradarequest.getTipoComprobante())); // Convertir la cadena de texto al enum TipoComprobante
 
         Proveedores proveedor = proveedoresRepository.findById(gentradarequest.getProveedorId())
                 .orElseThrow(() -> new ProductoNotFoundException("Proveedor con ID " + gentradarequest.getProveedorId() + " no encontrado"));
@@ -58,45 +68,7 @@ public class GEntradaServiceImpl  implements GuiaEntradaService {
 
 
         List<DetalleEntrada> detalles = new ArrayList<>();
-        // Agregar el cálculo de cantidadtotal
-//        Integer cantidadTotal = gentradarequest.getProductos().stream()
-//                .mapToInt(ProductoDto::getCantidad)
-//                .sum();
-//        Double precioTotal = gentradarequest.getProductos().stream()
-//                .mapToDouble(ProductoDto::getPreciocompra)
-//                .sum();
-//        pedido.setCantidadtotal(cantidadTotal);
-//        pedido.setPreciototal(precioTotal);
-//
-//
-//        for (ProductoDto productoDto : gentradarequest.getProductos()) {
-//            Productos productoExistente = obtenerProductoPorId(productoDto.getIdproducto());
-//
-//            if (productoExistente != null) {
-//                DetalleEntrada detallePedido = new DetalleEntrada();
-//                detallePedido.setEntradas(pedido);
-//                detallePedido.setProducto(productoExistente);
-//                detallePedido.setCantidad(productoDto.getCantidad());
-//                detallePedido.setPreciocompra(productoDto.getPreciocompra());
-//                detalles.add(detallePedido);
-//            } else {
-//                throw new ProductoNotFoundException("Producto con ID " + productoDto.getIdproducto() + " no encontrado");
-//            }
-//        }
-//
-//        // Guardar el pedido primero
-//        GEntradas pedidoGuardado = guiaEntradasRepository.save(pedido);
-//
-//        // Asignar el pedido a los detalles y guardar los detalles
-//        detalles.forEach(detalle -> detalle.setEntradas(pedidoGuardado));
-//        detalleEntradaRepository.saveAll(detalles);
-//
-//        // Asignar los detalles al pedido guardado
-//        pedidoGuardado.setDetalles(detalles);
-//
-//        // Verificar y actualizar el stock y el almacén después de guardar la entrada
-//        verificarYActualizarStockYAlmacen(pedidoGuardado);
-//        return pedidoGuardado;
+
         Integer cantidadTotal = 0;
         Double precioTotal = 0.0;
 

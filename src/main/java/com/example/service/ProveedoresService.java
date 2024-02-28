@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.entity.Almacenes;
 import com.example.entity.Proveedores ;
 import com.example.entity.Proveedores;
 
@@ -13,5 +14,9 @@ public interface ProveedoresService {
     public abstract Proveedores  findById(Long proveedores_Id);
     public abstract List<Proveedores> findAll();
 
+    List<Proveedores> findByActivos();
+    List<Proveedores> findByDesactivados();
+
+    Long count();
     Long countByNombre(String numruc);
 }

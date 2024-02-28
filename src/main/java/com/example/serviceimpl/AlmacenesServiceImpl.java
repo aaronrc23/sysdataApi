@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileNotFoundException;
 import java.util.Collection;
+import java.util.List;
 
 
 @Service
@@ -55,6 +56,17 @@ public class AlmacenesServiceImpl implements AlmacenesService {
     }
 
     @Override
+    public List<Almacenes> findByActivos() {
+        return repository.findByActivo(true);
+    }
+
+    @Override
+    public List<Almacenes> findByDesactivados() {
+        return repository.findByActivo(false);
+    }
+
+
+    @Override
     @Transactional(readOnly=true)
     public Long countByNombre(String numeroAlmacen) {
         return repository.countByNombre(numeroAlmacen);
@@ -69,5 +81,10 @@ public class AlmacenesServiceImpl implements AlmacenesService {
     @Override
     public byte[] exportXls() throws JRException, FileNotFoundException {
         return almacenReportes.exportToXls(repository.findAll());
+    }
+
+    @Override
+    public Long count() {
+        return repository.count();
     }
 }

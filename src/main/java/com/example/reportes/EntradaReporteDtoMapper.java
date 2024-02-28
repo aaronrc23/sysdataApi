@@ -13,7 +13,7 @@ public class EntradaReporteDtoMapper {
     public static EntradaReporteDto mapDetalleEntradaToDto(DetalleEntrada detalle) {
         // Obtenemos la información de DetalleEntrada
         Long detalleId = detalle.getDetalleId();
-        LocalDate fecha = detalle.getEntradas().getFecha(); // Suponiendo que la fecha está en Entradas
+//        LocalDate fecha = detalle.getEntradas().getFecha(); // Suponiendo que la fecha está en Entradas
         Productos producto = detalle.getProducto();
         Integer idProducto = (producto != null) ? producto.getIdproducto() : null; // Obtenemos el ID del producto
         String nombreProducto = detalle.getProducto().getNombre();
@@ -30,7 +30,7 @@ public class EntradaReporteDtoMapper {
 
         // Construimos el EntradaReporteDto
         return EntradaReporteDto.builder()
-                .fecha(fecha)
+//                .fecha(fecha)
                 .productos(List.of(productoDto))  // Si necesitas una lista, ajusta según tu estructura
                 .numserie(numSerie)
                 .proveedorNombre(detalle.getEntradas().getProveedores().getNombre_prov())

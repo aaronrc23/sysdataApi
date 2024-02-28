@@ -61,11 +61,4 @@
         public String getNombreprod(){
             return this.producto!=null? this.producto.getNombre():"-------";
         }
-
-
-
-
-
-
-
 }

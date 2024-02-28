@@ -13,13 +13,14 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class GEntradaRequest {
-    private LocalDate fecha;
-
+//    private LocalDate fecha;
+    private String tipoComprobante;
     private List<ProductoDto> productos;
     private String numserie;
     private Long proveedorId;
     private Long AlmacenId;
     private Integer cantidadtotal;
     private Double preciototal;
+
 
 }

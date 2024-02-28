@@ -1,4 +1,5 @@
 package com.example.dto;
+import com.example.entity.enums.TipoComprobante;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,19 +12,21 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class GEntradaDto {
-    private LocalDate fecha;
+//    private LocalDate fecha;
     private List<ProductoDto> productos;
     private String numserie;
     private String proveedorNombre;
     private Integer cantidadtotal;
+
     private Double preciototal;
 
     public GEntradaDto(GEntradaRequest entradaRequest, String numserie, String proveedorNombre, Integer cantidadtotal,Double preciototal) {
-        this.fecha = entradaRequest.getFecha();
+//        this.fecha = entradaRequest.getFecha();
         this.productos = entradaRequest.getProductos();
         this.numserie = entradaRequest.getNumserie();
         this.proveedorNombre = proveedorNombre;
         this.cantidadtotal = cantidadtotal;
         this.preciototal=preciototal;
+
     }
 }

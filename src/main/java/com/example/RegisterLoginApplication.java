@@ -35,9 +35,11 @@ public class RegisterLoginApplication {
 //					.email("aaron@mail.com")
 //					.username("admin")
 //					.password(passwordEncoder.encode("admin"))
+//					.enabled(true)
 //					.roles(Set.of(RoleEntity.builder()
 //							.name(ERole.valueOf(ERole.ADMIN.name()))
 //							.build()))
+//
 //					.build();
 
 //			UserEntity userEntity2 = UserEntity.builder()
@@ -57,13 +59,13 @@ public class RegisterLoginApplication {
 //							.name(ERole.valueOf(ERole.INVITED.name()))
 //							.build()))
 //					.build();
-
+//
 //			userRepository.save(userEntity);
-//////			userRepository.save(userEntity2);
-//////			userRepository.save(userEntity3);
-////
-////
-////
+////////			userRepository.save(userEntity2);
+////////			userRepository.save(userEntity3);
+//////
+//////
+//////
 //		};
 //	}
 }

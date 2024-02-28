@@ -29,8 +29,8 @@ public class Almacenes implements Serializable {
     @Column
     private String nombreAlmacen;
 
-    @Column(name = "numero_almacen", unique = true, nullable = false)
-    private String numeroAlmacen;
+//    @Column(name = "numero_almacen", unique = true, nullable = false)
+//    private String numeroAlmacen;
 
     @Column
     private String direccion;
@@ -54,7 +54,7 @@ public class Almacenes implements Serializable {
         return "Almacenes{" +
                 "id=" + id +
                 ", nombreAlmacen='" + nombreAlmacen + '\'' +
-                ", numeroAlmacen='" + numeroAlmacen + '\'' +
+//                ", numeroAlmacen='" + numeroAlmacen + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", activo=" + activo +
                 '}';

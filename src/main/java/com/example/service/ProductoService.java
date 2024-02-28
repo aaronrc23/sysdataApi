@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.dto.ProductoDto;
 import com.example.entity.Categoria;
 import com.example.entity.Productos;
+import com.example.entity.Proveedores;
 import net.sf.jasperreports.engine.JRException;
 
 import java.io.FileNotFoundException;
@@ -18,6 +19,11 @@ public interface ProductoService {
 
     boolean isExistCodigoBarra(String codigo_barra);
 
+    List<Productos> findByActivos();
+    List<Productos> findByDesactivados();
+
+
+    Long count();
     /*cammbio*/
     List<Productos> findByCategoria(Categoria categoria);
 

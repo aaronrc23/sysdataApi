@@ -22,6 +22,23 @@ public class    Proveedores implements Serializable {
     @Column
     private String nombre_prov;
 
+    @Column
+    private String nombre_emp;
+
+    @Column
+    private String tipodocumento;
+    @Column
+    private String razon_social;
+
+    @Column
+    private String departamento;
+
+    @Column
+    private String distrito;
+
+    @Column
+    private String provincia;
+
     @Column(unique = true, nullable = false)
     private String numruc;
     @Column

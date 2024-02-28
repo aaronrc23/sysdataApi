@@ -3,6 +3,7 @@
 
     import com.example.entity.detalles.DetalleEntrada;
     import com.example.entity.detalles.DetallejsonProducto;
+    import com.example.entity.enums.TipoComprobante;
     import com.fasterxml.jackson.annotation.JsonIgnore;
     import jakarta.persistence.*;
     import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@
     import java.io.Serializable;
     import java.time.LocalDate;
     import java.util.ArrayList;
+    import java.util.Date;
     import java.util.List;
 
     @Data
@@ -23,43 +25,56 @@
         @Table(name = "entradas")
         public class GEntradas implements Serializable {
 
-            @Id
-            @GeneratedValue(strategy = GenerationType.IDENTITY)
-            private Long gentradasId;
-            @Column
-            private LocalDate fecha;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long gentradasId;
+//        @Column
+//        private LocalDate fecha;
 
-            @Column
-            private String numeroserie;
+        @Column
+        private Date fechaRegistro;
+//        @Column
+//        private Date horaCreacion;
+        @Column
+        private String numeroserie;
 
-            @ManyToOne
-            @JoinColumn(name = "almacen_id")
-            private Almacenes almacen;
+        @ManyToOne
+        @JoinColumn(name = "almacen_id")
+        private Almacenes almacen;
 
-            @Column
-            private Integer cantidadtotal;
+        @Column
+        private Integer cantidadtotal;
 
-            @Column
-            private Double preciototal;
+        @Enumerated(EnumType.STRING)
+        @Column
+        private TipoComprobante tipoComprobante;
 
-            @OneToMany(mappedBy = "entradas", cascade = CascadeType.ALL)
-            @JsonIgnore
-            private List<DetalleEntrada> detalles = new ArrayList<>();
+        @Column
+        private Double preciototal;
+
+        @Column
+        private boolean estado ;
 
 
-            @ManyToOne
-            @JoinColumn(name = "proveedor_id")
-            private Proveedores proveedores;
 
-            @PrePersist
-            public void prePersist() {
-                this.fecha = LocalDate.now();
-            }
-            @PostPersist
-            public void postPersist() {
-                this.numeroserie = generarNumeroSerie();
-            }
 
+        @OneToMany(mappedBy = "entradas", cascade = CascadeType.ALL)
+        @JsonIgnore
+        private List<DetalleEntrada> detalles = new ArrayList<>();
+
+
+        @ManyToOne
+        @JoinColumn(name = "proveedor_id")
+        private Proveedores proveedores;
+
+//        @PrePersist
+//        public void prePersist() {
+//            this.fecha = LocalDate.now();
+//        }
+        @PostPersist
+        public void postPersist() {
+            this.numeroserie = generarNumeroSerie();
+        }
 
         public List<DetallejsonProducto> getDetallesAsJson() {
             List<DetallejsonProducto> detallesJson = new ArrayList<>();
@@ -78,7 +93,15 @@
 
 
         private String generarNumeroSerie() {
-                return "EN" + String.format("%04d", gentradasId);
+            if (gentradasId == null) {
+                return "Número de serie no disponible";
             }
+            String tipoComprobantePrefix = tipoComprobante.toString().substring(0, 1); // Tomar la primera letra del tipo de comprobante
+            String almacenId = String.format("%03d", almacen.getId()); // Formatear el ID del almacén a tres dígitos
+            String entradaId = String.format("%04d", gentradasId); // Asegurarse de que el ID tenga 6 dígitos
+            return tipoComprobantePrefix + almacenId + "-" + entradaId;
         }
+
+
+    }
 

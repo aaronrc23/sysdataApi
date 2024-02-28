@@ -38,7 +38,7 @@ public class Productos  implements Serializable {
 
     @Column
     private int stock;
-    @Column
+    @Column(length = 1048576)
     private String descripcion;
     @Column(length = 1048576) // Tamaño personalizado para la columna imagen (en este caso, 1 MB)
     private String imagen;

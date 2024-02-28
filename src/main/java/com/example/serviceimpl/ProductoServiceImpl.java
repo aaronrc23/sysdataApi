@@ -56,6 +56,21 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    public List<Productos> findByActivos() {
+        return repository.findByActivo(false);
+    }
+
+    @Override
+    public List<Productos> findByDesactivados() {
+        return repository.findByActivo(false);
+    }
+
+    @Override
+    public Long count() {
+        return repository.count();
+    }
+
+    @Override
     @Transactional
     public List<Productos> findByCategoria(Categoria categoria) {
         return repository.findByCategoria(categoria);

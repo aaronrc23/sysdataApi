@@ -3,6 +3,7 @@ package com.example.Seguridad.service;
 import com.example.Seguridad.entity.UserEntity;
 import com.example.Seguridad.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +25,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         UserEntity userEntity = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("El usuario " + username + " no existe."));
+
+        if (!userEntity.isEnabled()) {
+            throw new DisabledException("El usuario está desactivado.");
+        }
 
         Collection<? extends GrantedAuthority> authorities = userEntity.getRoles()
                 .stream()

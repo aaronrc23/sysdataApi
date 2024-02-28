@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class UnidadServiceImpl implements UnidadMedidaService {
@@ -48,10 +49,22 @@ public class UnidadServiceImpl implements UnidadMedidaService {
     }
 
     @Override
+    public List<UnidadMedida> findAllDesactivadas() {
+        return repository.findByActivo(false);
+    }
+
+    @Override
+    public List<UnidadMedida> findAllActivos() {
+        return repository.findByActivo(true);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Long countByNombre(String nombre) {
         return repository.countByNombre(nombre);
     }
+
+
 
 
 }

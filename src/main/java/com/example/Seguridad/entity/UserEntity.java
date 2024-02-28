@@ -3,6 +3,7 @@ package com.example.Seguridad.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -32,9 +34,22 @@ public class UserEntity {
     private String username;
     @NotBlank
     private String password;
+    @NotNull
+    private Boolean enabled;
 
     @ManyToMany(fetch=FetchType.EAGER ,targetEntity = RoleEntity.class ,cascade = CascadeType.PERSIST)    //que cuando solicite un usuario me trae todos ala vez
     @JoinTable(name = "user_roles",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles;
+
+
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+
+
+
+
+
 
 }

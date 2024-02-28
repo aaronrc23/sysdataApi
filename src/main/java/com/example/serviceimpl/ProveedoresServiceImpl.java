@@ -1,5 +1,6 @@
 package com.example.serviceimpl;
 
+import com.example.entity.Almacenes;
 import com.example.entity.Proveedores;
 import com.example.repository.ProveedoresRepository;
 import com.example.service.ProveedoresService;
@@ -44,6 +45,21 @@ public class ProveedoresServiceImpl implements ProveedoresService {
     @Transactional
     public List<Proveedores> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Proveedores> findByActivos() {
+        return repository.findByActivo(true);
+    }
+
+    @Override
+    public List<Proveedores> findByDesactivados() {
+        return repository.findByActivo(false);
+    }
+
+    @Override
+    public Long count() {
+        return repository.count();
     }
 
     @Override

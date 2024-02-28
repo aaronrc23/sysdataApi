@@ -25,13 +25,14 @@ public class UnidadMedidaController {
         return new ResponseEntity<>(umdService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/registrar")
+        @PostMapping("/registrar")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> registrar_POST(@RequestBody UnidadMedida unidadMedida)
     {
         Long isExist = umdService.countByNombre(unidadMedida.getNombre());
 
         if (isExist == 0) {
+            unidadMedida.setActivo(true);
             UnidadMedida nuevaCategoria = umdService.insert(unidadMedida);
             return new ResponseEntity<>(nuevaCategoria, HttpStatus.CREATED);
         } else {
@@ -62,10 +63,35 @@ public class UnidadMedidaController {
         }
     }
 
+    @PutMapping("reactivar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void reactivarUnidad(@PathVariable Long id) {
+        UnidadMedida existingCategoria = umdService.findById(id);
+        if (existingCategoria != null) {
+            existingCategoria.setActivo(true);
+            umdService.update(existingCategoria);
+        }
+    }
+
+
     @DeleteMapping("delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void eliminarCategoria(@PathVariable Long id) {
         umdService.delete(id);
     }
-    
+
+
+
+    @GetMapping("/listar/desactivadas")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> listarDesactivadas_GET() {
+        return new ResponseEntity<>(umdService.findAllDesactivadas(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/listar/activos")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> listarActivos_GET() {
+        return new ResponseEntity<>(umdService.findAllActivos(), HttpStatus.OK);
+    }
 }

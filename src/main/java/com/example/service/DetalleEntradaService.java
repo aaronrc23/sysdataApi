@@ -20,5 +20,7 @@ public interface DetalleEntradaService {
     List<DetalleEntrada> listarDetallesPorEntrada(Long gentradasId);
 
     DetalleEntrada findProductById(Long detalleId);
+    List<DetalleEntrada> findByProducto_Idproducto(Integer idproducto);
+
     byte[] exportPdfForProduct(DetalleEntrada detalleEntrada) throws JRException, FileNotFoundException;
 }

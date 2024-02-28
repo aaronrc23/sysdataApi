@@ -66,6 +66,10 @@ public class DetalleEntradaServiceImpl implements DetalleEntradaService {
         return new byte[0];
     }
 
+    @Override
+    public List<DetalleEntrada> findByProducto_Idproducto(Integer idproducto) {
+        return repository.findByProducto_Idproducto(idproducto);
+    }
 
 
     @Override

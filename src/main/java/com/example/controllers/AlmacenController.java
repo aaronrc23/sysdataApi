@@ -12,6 +12,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/almacen")
@@ -29,15 +32,16 @@ public class AlmacenController {
 
     @PostMapping("/registrar")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> registrar_POST(@RequestBody Almacenes unidadMedida)
+    public ResponseEntity<?> registrar_POST(@RequestBody Almacenes almacenes)
     {
-        Long isExist = almacenesService.countByNombre(unidadMedida.getNumeroAlmacen());
+        Long isExist = almacenesService.countByNombre(almacenes.getNombreAlmacen());
 
         if (isExist == 0) {
-            Almacenes nuevaCategoria = almacenesService.insert(unidadMedida);
+            almacenes.setActivo(true);
+            Almacenes nuevaCategoria = almacenesService.insert(almacenes);
             return new ResponseEntity<>(nuevaCategoria, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("La categoría no se puede registrar porque " + unidadMedida.getNumeroAlmacen().toUpperCase() + " ya existe!", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("El almacen no se puede registrar porque " + almacenes.getNombreAlmacen().toUpperCase() + " ya existe!", HttpStatus.CONFLICT);
         }
     }
 
@@ -52,6 +56,8 @@ public class AlmacenController {
             almacenesService.update(umd);
         }
     }
+
+
 
 
     /*----------Borrrado logico-------------- */
@@ -80,6 +86,45 @@ public class AlmacenController {
         }
     }
 
+
+    @PutMapping("reactivar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void reactivarCategoria(@PathVariable Long id) {
+        Almacenes existingAlmacen = almacenesService.findById(id);
+        if (existingAlmacen != null) {
+            existingAlmacen.setActivo(true);
+            almacenesService.update(existingAlmacen);
+        }
+    }
+
+
+
+    @GetMapping("/estadisticas")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Long>> obtenerEstadisticasCategorias() {
+        Map<String, Long> estadisticas = new HashMap<>();
+        estadisticas.put("total", almacenesService.count());
+        estadisticas.put("activas", Long.valueOf(almacenesService.findByActivos().size()));
+        estadisticas.put("desactivadas", Long.valueOf(almacenesService.findByDesactivados().size()));
+        return new ResponseEntity<>(estadisticas, HttpStatus.OK);
+    }
+
+
+
+
+
+    @GetMapping("/listar/activos")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> listarDesactivadas_GET() {
+        return new ResponseEntity<>(almacenesService.findByActivos(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/listar/desactivadas")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> listarActivos_GET() {
+        return new ResponseEntity<>(almacenesService.findByDesactivados(), HttpStatus.OK);
+    }
 
 
     @DeleteMapping("delete/{id}")

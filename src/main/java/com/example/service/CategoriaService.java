@@ -11,6 +11,10 @@ public interface CategoriaService {
     public abstract void delete(Long categoriaId);
     public abstract Categoria findById(Long categoriaId);
     public abstract List<Categoria> findAll();
-
+    List<Categoria> findAllDesactivadas(); // Agregar este método
+    List<Categoria> findAllActivos();
     Long countByNombre(String nombre);
+
+    Long count();
+
 }

@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.example.entity.detalles.DetalleEntrada;
+import com.example.entity.detalles.DetallejsonProducto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,7 +35,13 @@ public class ProductoStock implements Serializable {
     @Column
     private int stock;
 
+    @Column
+    private Double precioCompra;
 
+
+    public String getCodigobarra(){
+        return this.producto!=null? this.producto.getCodigo_barra():"-------";
+    }
 
 
 }

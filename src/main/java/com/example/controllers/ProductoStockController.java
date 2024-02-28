@@ -43,5 +43,19 @@ public class ProductoStockController {
 
     }
 
+    @GetMapping("/buscar/{codigoBarras}")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public ResponseEntity<?> buscarPorCodigoBarras_GET(@PathVariable String codigoBarras) {
+        ProductoStock productoEncontrado = productoStockService.findByProducto_Codigo_barra(codigoBarras);
+        if (productoEncontrado != null) {
+            return new ResponseEntity<>(productoEncontrado, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Producto no encontrado", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
+
 
 }

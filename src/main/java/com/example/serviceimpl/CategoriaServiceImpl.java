@@ -52,4 +52,21 @@ public class CategoriaServiceImpl implements CategoriaService {
     public Long countByNombre(String nombre) {
         return repository.countByNombre(nombre);
     }
+
+    @Override
+    public Long count() {
+        return repository.count();
+    }
+
+    @Override
+    public List<Categoria> findAllDesactivadas() {
+        return repository.findByActivo(false);
+    }
+
+    @Override
+    public List<Categoria> findAllActivos() {
+        return repository.findByActivo(true);
+    }
+
+
 }

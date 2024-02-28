@@ -29,5 +29,6 @@ public interface DetalleEntradaRepository extends JpaRepository<DetalleEntrada, 
 
     List<DetalleEntrada> findByEntradas_GentradasId(Long entradasId);
 
+    List<DetalleEntrada> findByProducto_Idproducto(Integer idproducto);
 
 }

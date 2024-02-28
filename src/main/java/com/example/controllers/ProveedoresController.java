@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("api/proveedores")
 public class ProveedoresController {
@@ -39,6 +42,7 @@ public class ProveedoresController {
         Long isExist = proveedoresService.countByNombre(proveedores.getNumruc());
 
         if (isExist == 0) {
+            proveedores.setActivo(true);
             Proveedores nuevaCategoria = proveedoresService.insert(proveedores);
             return new ResponseEntity<>(nuevaCategoria, HttpStatus.CREATED);
         } else {
@@ -67,6 +71,47 @@ public class ProveedoresController {
             proveedoresService.update(existingProveedor);
         }
     }
+
+
+    @PutMapping("reactivar/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void reactivarProveedor(@PathVariable Long id) {
+        Proveedores existingProveedor = proveedoresService.findById(id);
+        if (existingProveedor != null) {
+            existingProveedor.setActivo(true);
+            proveedoresService.update(existingProveedor);
+        }
+    }
+
+
+    @GetMapping("/estadisticas")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Long>> obtenerEstadisticasCategorias() {
+        Map<String, Long> estadisticas = new HashMap<>();
+        estadisticas.put("total", proveedoresService.count());
+        estadisticas.put("activas", Long.valueOf(proveedoresService.findByActivos().size()));
+        estadisticas.put("desactivadas", Long.valueOf(proveedoresService.findByDesactivados().size()));
+        return new ResponseEntity<>(estadisticas, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/listar/activos")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> listarDesactivadas_GET() {
+        return new ResponseEntity<>(proveedoresService.findByActivos(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/listar/desactivadas")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> listarActivos_GET() {
+        return new ResponseEntity<>(proveedoresService.findByDesactivados(), HttpStatus.OK);
+    }
+
+
+
+
+
 
 
     @DeleteMapping("delete/{id}")
