@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "https://upload-819f6.web.app/")
 @RequestMapping("api/undmedida")
 public class UnidadMedidaController {
     
