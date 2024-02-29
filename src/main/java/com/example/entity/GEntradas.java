@@ -28,11 +28,14 @@
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long gentradasId;
-//        @Column
-//        private LocalDate fecha;
+        @Column
+        private LocalDate fechavencimiento;
 
         @Column
         private Date fechaRegistro;
+
+        @Column
+        private String tipoBien;
 //        @Column
 //        private Date horaCreacion;
         @Column

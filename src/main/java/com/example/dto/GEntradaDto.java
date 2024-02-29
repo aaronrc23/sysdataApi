@@ -12,16 +12,19 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class GEntradaDto {
-//    private LocalDate fecha;
+    private LocalDate fechavencimiento;
     private List<ProductoDto> productos;
     private String numserie;
     private String proveedorNombre;
+    private String tipoBien;
+
     private Integer cantidadtotal;
 
     private Double preciototal;
 
     public GEntradaDto(GEntradaRequest entradaRequest, String numserie, String proveedorNombre, Integer cantidadtotal,Double preciototal) {
-//        this.fecha = entradaRequest.getFecha();
+        this.fechavencimiento = entradaRequest.getFechavencimiento();
+        this.tipoBien=entradaRequest.getTipoBien();
         this.productos = entradaRequest.getProductos();
         this.numserie = entradaRequest.getNumserie();
         this.proveedorNombre = proveedorNombre;

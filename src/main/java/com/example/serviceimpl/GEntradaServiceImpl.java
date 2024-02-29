@@ -49,6 +49,7 @@ public class GEntradaServiceImpl  implements GuiaEntradaService {
         GEntradas pedido = new GEntradas();
 //        pedido.setFecha(gentradarequest.getFecha());
         pedido.setFechaRegistro(new Date());
+        pedido.setFechavencimiento(gentradarequest.getFechavencimiento());
         pedido.setEstado(true);
         // Obtener la fecha y hora actual de Perú
         LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Lima"));
