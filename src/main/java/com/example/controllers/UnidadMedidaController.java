@@ -26,7 +26,7 @@ public class UnidadMedidaController {
         return new ResponseEntity<>(umdService.findAll(), HttpStatus.OK);
     }
 
-        @PostMapping("/registrar")
+    @PostMapping("/registrar")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> registrar_POST(@RequestBody UnidadMedida unidadMedida)
     {

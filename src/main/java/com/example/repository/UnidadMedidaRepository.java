@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UnidadMedidaRepository extends JpaRepository<UnidadMedida, Long> {
 
-    @Query(value="select count(*) from unidadMedida where nombre = :nombre", nativeQuery=true)
+    @Query(value="select count(*) from unidadmedida where nombre = :nombre", nativeQuery=true)
     Long countByNombre(@Param("nombre") String nombre);
 
 
