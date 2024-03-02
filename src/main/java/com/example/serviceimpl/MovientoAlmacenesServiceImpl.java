@@ -17,6 +17,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -54,6 +57,9 @@ public class MovientoAlmacenesServiceImpl implements MovientoAlmacenesService {
         movimiento.setDir_partida(movimientoDTO.getDirPartida());
         movimiento.setDir_llegada(movimientoDTO.getDirLlegada());
         movimiento.setMotivotraslado(movimientoDTO.getMotivoTraslado());
+
+        
+
 
         // Configura el almacén de origen
         Almacenes almacenOrigen = almacenesRepository.findById(movimientoDTO.getIdAlmacenOrigen())

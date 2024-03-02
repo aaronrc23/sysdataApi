@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +28,8 @@ public class MovientoAlmacenes implements Serializable {
     @Column(name = "id_moviento")
     private Integer idmoviento;
 
-    @Column
-    private LocalDate fechaemision;
+    @Column(name = "fechaemision", columnDefinition = "TIMESTAMP")
+    private LocalDateTime fechaemision;
     @Column
     private Date fechainciotraslado;
     @Column
@@ -64,8 +66,11 @@ public class MovientoAlmacenes implements Serializable {
 
     @PrePersist
     public void prePersist() {
-        this.fechaemision = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Lima"));
+        this.fechaemision = now;
     }
+
+
     public List<DetallejsonProducto> getDetallesAsJson() {
         List<DetallejsonProducto> detallesJson = new ArrayList<>();
         for (DetalleMoviento detalle : detalles) {
