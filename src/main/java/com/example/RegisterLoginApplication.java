@@ -21,7 +21,7 @@ public class RegisterLoginApplication {
 	}
 
 
-
+//
 //	@Autowired
 //	PasswordEncoder passwordEncoder;
 //
