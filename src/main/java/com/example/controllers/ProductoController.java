@@ -60,6 +60,7 @@ public class ProductoController {
     @PreAuthorize("hasRole('ADMIN')")
     public void actualizarCategoria(@PathVariable Integer id, @RequestBody Productos producto) {
         Productos existingCategoria = productoService.findById(id);
+        producto.setActivo(true);
         if (existingCategoria != null) {
             producto.setIdproducto(id);
             productoService.update(producto);
@@ -69,23 +70,26 @@ public class ProductoController {
 
     @PutMapping("/reactivar/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void activarProducto(@PathVariable Integer id, @RequestBody Productos producto) {
+    public void activarProducto(@PathVariable Integer id) {
         Productos existingProducto = productoService.findById(id);
         if (existingProducto != null) {
             existingProducto.setActivo(true);
-            productoService.update(producto);
+            productoService.update(existingProducto);
         }
     }
 
+
+
     @PutMapping("/desactivar/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void desactivarProducto(@PathVariable Integer id, @RequestBody Productos producto) {
+    public void desactivarProducto(@PathVariable Integer id) {
         Productos existingProducto = productoService.findById(id);
         if (existingProducto != null) {
             existingProducto.setActivo(false);
-            productoService.update(producto);
+            productoService.update(existingProducto);
         }
     }
+
 
 
     @GetMapping("/estadisticas")

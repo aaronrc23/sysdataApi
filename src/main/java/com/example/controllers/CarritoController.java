@@ -25,10 +25,10 @@ public class CarritoController {
     private CarritoService carritoService;
     @Autowired
     private ComprobanteService comprobanteService;
-    @PostMapping("/agregarItem")
-    public void agregarItemAlCarrito(@RequestBody CarritoItemDTO carritoItemDTO) {
-        carritoService.agregarItemAlCarrito(carritoItemDTO);
-    }
+        @PostMapping("/agregarItem")
+        public void agregarItemAlCarrito(@RequestBody CarritoItemDTO carritoItemDTO) {
+            carritoService.agregarItemAlCarrito(carritoItemDTO);
+        }
 
 
 
