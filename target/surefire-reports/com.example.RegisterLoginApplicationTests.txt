@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.RegisterLoginApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 23.876 s - in com.example.RegisterLoginApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 22.88 s - in com.example.RegisterLoginApplicationTests
